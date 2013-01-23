@@ -1,0 +1,14 @@
+syntax: glob
+
+target/
+lib/
+classes/
+checkouts/
+pom.xml
+*.jar
+*.class
+.lein-deps-sum
+.lein-failures
+.lein-plugins
+2002FemPreg.dat.gz
+2002FemResp.dat.gz
