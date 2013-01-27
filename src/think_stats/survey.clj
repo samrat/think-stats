@@ -32,8 +32,8 @@
 
 (defn- recode-agepreg [pregnancies]
   (reduce (fn [v preg]
-            (if (not (= (get preg "agepreg") "NA"))
-              (conj v (assoc preg "agepreg" (/ (get preg "agepreg") 100)))
+            (if (not= (get preg "agepreg") "NA")
+              (conj v (update-in preg ["agepreg"] / 100))
               (conj v (assoc preg "agepreg" "NA"))))
           [] pregnancies))
 
@@ -41,9 +41,9 @@
   (reduce (fn [v preg]
             (let [birthwgt_lb (get preg "birthwgt_lb")
                   birthwgt_oz (get preg "birthwgt_oz")]
-              (if (and (not (= birthwgt_lb "NA"))
+              (if (and (not= birthwgt_lb "NA")
                        (< birthwgt_lb 20)
-                       (not (= birthwgt_oz "NA"))
+                       (not= birthwgt_oz "NA")
                        (<= birthwgt_oz 16))
                 (conj v (assoc preg "totalwgt_oz"
                                (+ (* birthwgt_lb 16) birthwgt_oz)))
