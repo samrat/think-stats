@@ -65,5 +65,4 @@
                                            ["finalwgt" 423 440 float]])))
               [] (clojure.string/split-lines (read-file path)))
       (recode-agepreg)
-      (recode-birthwgt-oz)
-      ))
+      (recode-birthwgt-oz)))
