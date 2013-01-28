@@ -16,12 +16,13 @@
 (def others (gestation-period-by-birthord (pregnancies path) false))  
 
 (defn plot-frequencies []
-  (let [first-hist (into (sorted-map) (hist first-born))
-        others-hist (into (sorted-map) (hist others))]
-    (save (bar-chart (interleave (keys first-hist)
-                                 (keys others-hist))
-                     (interleave (vals first-hist)
-                                 (vals others-hist))
+  (let [first-hist (hist first-born)
+        others-hist (hist others)
+        weeks (range 20 46)]
+    (save (bar-chart (interleave weeks
+                                 weeks)
+                     (interleave (map #(get first-hist %) weeks)
+                                 (map #(get others-hist %) weeks))
                      :x-label "weeks"
                      :y-label "frequency"
                      :legend true
@@ -35,12 +36,13 @@
           :width 1000)))
 
 (defn plot-pmf []
-  (let [first-pmf (into (sorted-map) (pmf (hist first-born)))
-        others-pmf (into (sorted-map) (pmf (hist others)))]
-    (save (bar-chart (interleave (keys first-pmf)
-                                 (keys others-pmf))
-                     (interleave (vals first-pmf)
-                                 (vals others-pmf))
+  (let [first-pmf (pmf (hist first-born))
+        others-pmf (pmf (hist others))
+        weeks (range 20 46)]
+    (save (bar-chart (interleave weeks
+                                 weeks)
+                     (interleave (map #(get first-pmf %) weeks)
+                                 (map #(get others-pmf %) weeks))
                      :x-label "weeks"
                      :y-label "probability"
                      :legend true

@@ -11,6 +11,12 @@
                 (/ (second kv) n)))
             {} (apply vector histogram))))
 
+(defn normalize [pmf]
+  (let [total (apply + (vals pmf))]
+    (reduce (fn [m [key val]]
+              (assoc m key (/ val total)))
+            {} (vec pmf))))
+
 (defn mode [histogram]
   (ffirst (reverse (sort-by val histogram))))
 
